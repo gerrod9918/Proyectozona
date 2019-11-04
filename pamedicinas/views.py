@@ -6,11 +6,11 @@ from django.contrib import auth
 
 
 def lista(request):
-    notificaciones = Notificacion.objects.filter(fecha_compra__isnull=True, paciente = auth.get_user(request).id).order_by('fecha_creacion')
+    notificaciones = Notificacion.objects.filter(fecha_compra__isnull=True, paciente = request.user).order_by('fecha_creacion')
     return render(request, 'proyecto/listar_not.html', {'notificaciones': notificaciones})
 
 def lista_comprado(request):
-    notificaciones = Notificacion.objects.filter(fecha_compra__lte=timezone.now()).order_by('fecha_compra')
+    notificaciones = Notificacion.objects.filter(fecha_compra__lte=timezone.now(), paciente = request.user).order_by('fecha_compra')
     return render(request, 'proyecto/listar_not.html', {'notificaciones': notificaciones})
 
 def detalle(request, pk):
