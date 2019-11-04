@@ -1,0 +1,26 @@
+{% extends 'proyecto/base.html' %}
+{% block content %}
+        <div class="post">
+        {% if notificacion.fecha_compra %}
+          <div class="date">
+            <p>Fecha de Compra: {{ notificacion.fecha_compra }}
+          </div>
+        {% else %}
+          <div class="date">
+            <p>Fecha: {{ notificacion.fecha_creacion }}
+          </div>
+          <a href="{% url 'comprar' pk=notificacion.pk %}" class="btn btn-default">Compra Realizada</a>
+        {% endif %}
+        <br>
+        <h2>{{ notificacion.titulo }}</h2>
+        <h6>{{ notificacion.descripcion|linebreaksbr }}</h6>
+        <br>
+        <h4>Medicamentos</h4>
+        <ul>
+        {% for medicina in medicinas %}
+            <li type="square">{{ medicina.nombre }} - Q{{ medicina.precio }}</li>
+            <dd>{{ medicina.descripcion }}</dd>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

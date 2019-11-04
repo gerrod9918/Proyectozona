@@ -1,8 +1,12 @@
-<html>
-    <head>
-        <title>Notifications APP</title>
-    </head>
-    <body>
-        <p>Aqui se listaran las notificaciones</p>
-    </body>
-</html>
+{% extends 'proyecto/base.html' %}
+
+{% block content %}
+{% for notificacion in notificaciones %}
+    <div class="post">
+        <p class="date">Fecha: {{ notificacion.fecha_creacion }}</p>
+        <br>
+        <h2><a href="{% url 'detalle' pk=notificacion.pk %}">{{ notificacion.titulo }}</a></h2>
+        <h6>{{ notificacion.descripcion|truncatechars:200 }}</h6>
+    </div>
+{% endfor %}
+{% endblock %}
