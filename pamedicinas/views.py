@@ -2,10 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import Notificacion, Medicina
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.contrib import auth
 
 
 def lista(request):
-    notificaciones = Notificacion.objects.filter(fecha_compra__isnull=True).order_by('fecha_creacion')
+    notificaciones = Notificacion.objects.filter(fecha_compra__isnull=True, paciente = auth.get_user(request).id).order_by('fecha_creacion')
     return render(request, 'proyecto/listar_not.html', {'notificaciones': notificaciones})
 
 def lista_comprado(request):
